@@ -52,3 +52,86 @@ if(loginEmail != null) {
   }
   
 }
+
+const tbody = document.querySelector("#memberList")
+
+function selectMemberList() {
+
+	fetch("/member/selectMember")
+	.then(resp => resp.json())
+	.then(memberList => {
+
+		tbody.innerHTML = "";
+
+		for(let member of memberList) {
+
+			const tr = document.createElement("tr");
+			const arr = ['memberNo', 'memberEmail', 'memberNickname', 'memberDelFl']
+
+			for(let key of arr) {
+
+				const td = document.createElement("td");
+
+				td.innerText = member[key];
+				tr.append(td);
+
+			}
+			tbody.append(tr);
+		}
+
+	});
+
+} 
+
+document.querySelector("#selectMemberList").addEventListener("click", selectMemberList);
+
+
+document.querySelector("#resetPw").addEventListener("click", () => {
+
+	const memberNo = document.querySelector("#resetMemberNo");
+
+	fetch("/member/resetPw", {
+		method : "PUT",
+		headers : {"Content-Type" : "application/json"}, 
+		body : JSON.stringify(memberNo.value)
+	})
+	.then(resp => resp.text())
+	.then(result => {
+
+		console.log(result);
+
+		if (result > 0) {
+			alert("비밀번호가 초기화되었습니다!");
+			memberNo.value = "";
+		} else {
+			alert("초기화 실패 ㅜㅜ");
+		}
+
+	});
+
+});
+
+document.querySelector("#restorationBtn").addEventListener("click", () => {
+
+	const memberNo = document.querySelector("#restorationMemberNo");
+
+	fetch("/member/restorationMember", {
+		method : "PUT",
+		headers : {"Content-Type" : "application/json"},
+		body : JSON.stringify(memberNo.value)
+	})
+	.then(resp => resp.text())
+	.then(result => {
+
+		if (result > 0) {
+			alert("회원 복구가 완료되었습니다.");
+			memberNo.value = "";
+			selectMemberList();
+		} else {
+			alert("없는 회원번호이거나 회원이 탈퇴하지 않았습니다.");
+		}
+
+	});
+
+});
+

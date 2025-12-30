@@ -13,24 +13,23 @@
 // 1. #boardLike 가 클릭 되었을 때
 document.querySelector("#boardLike").addEventListener("click", e => {
 
-
   // 2. 로그인 상태가 아닌 경우 동작 X
   if(loginMemberNo == null) {
-    alert("로그인 후 이용해주세요~");
+    alert("로그인 후 이용 바랍니다.");
     return;
   }
 
-  // 3. 준비된 3개의 변수를 JS 객체 생성 (JSON 변환 예정)
+  // 3. 준비된 3개의 변수를 JS 객체로 생성 (JSON 변환 예정) 
   const obj = {
     "memberNo" : loginMemberNo,
-    "boardNo"  : boardNo,
+    "boardNo" : boardNo,
     "likeCheck" : likeCheck
-  };
+  }
 
   // 4. 좋아요 INSERT/DELETE 비동기 요청
   fetch("/board/like", {
     method : "POST",
-    headers : {"content-Type" : "application/json"},
+    headers : {"Content-Type" : "application/json"},
     body : JSON.stringify(obj)
   })
   .then(resp => resp.text())
@@ -42,10 +41,10 @@ document.querySelector("#boardLike").addEventListener("click", e => {
     }
 
     // 5. likeCheck 값 0 <-> 1 변환
-    // -> 클릭 될 떄 마다 INSERT/DELETE 동작을 번갈아 가면서 할 수 있게끔
+    // => 클릭될 때 마다 INSERT/DELETE 동작을 번갈아가면서 할 수 있게끔
     likeCheck = likeCheck == 0 ? 1 : 0;
 
-    // 6. 하트를 채우기/비우기 바꾸기
+    // 6. 하트 아이콘 채우기/비우기 변환
     e.target.classList.toggle("fa-regular");
     e.target.classList.toggle("fa-solid");
 
@@ -55,7 +54,6 @@ document.querySelector("#boardLike").addEventListener("click", e => {
   });
 
 });
-
 
 // ---------- 게시글 수정 버튼 -----------------
 

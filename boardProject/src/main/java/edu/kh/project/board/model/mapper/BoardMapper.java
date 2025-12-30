@@ -8,9 +8,6 @@ import org.apache.ibatis.session.RowBounds;
 
 import edu.kh.project.board.model.dto.Board;
 
-/**
- * 
- */
 @Mapper
 public interface BoardMapper {
 
@@ -51,34 +48,39 @@ public interface BoardMapper {
 	 */
 	Board selectOne(Map<String, Integer> map);
 
-	/** 조회 수 1 증가 SQL 수행
+	/** 조회수 1 증가 SQL 수행
 	 * @param boardNo
 	 * @return
 	 */
 	int updateReadCount(int boardNo);
 
-	/** 조회 수 조회 SQL 수행
+	/** 현재 조회수 조회 SQL 수행
 	 * @param boardNo
 	 * @return
 	 */
 	int selectReadCount(int boardNo);
 
-	/** 좋아요 체크 SQL(DELETE)
+	/** 좋아요 해제 SQL 수행
 	 * @param map
 	 * @return
 	 */
 	int deleteBoardLike(Map<String, Integer> map);
 
-	/** 좋아요 체크 SQL(INSERT)
+	/** 좋아요 체크 SQL 수행
 	 * @param map
 	 * @return
 	 */
 	int insertBoardLike(Map<String, Integer> map);
 
-	/** 게시글 좋아요 갯수 조회(SELECT)
+	/** 게시글 좋아요 개수 조회 (SELECT) SQL 수행
 	 * @param integer
 	 * @return
 	 */
-	int selectLikeCount(Integer integer);
+	int selectLikeCount(int boardNo);
+
+	/** DB 이미지 파일명 목록 조회 SQL 수행
+	 * @return
+	 */
+	List<String> selectDbImageList();
 
 }

@@ -5,11 +5,12 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
+@Data
 @Builder
 public class Comment {
+
 	private int commentNo;
 	private String commentContent;
 	private String commentWriteDate;
@@ -18,7 +19,8 @@ public class Comment {
 	private int memberNo;
 	private int parentCommentNo;
 	
-	// 댓글 조회 시 MEMBER 테이블과 JOIN해서 가져올 데이터 담을 필드
-	private String profileImg; // 회원 프로필
-	private String memberNickname; // 닉네임
+	// 댓글 조회 시 MEMBER 테이블과 JOIN해서 가져올 데이터
+	private String profileImg;
+	private String memberNickname;
+	
 }
